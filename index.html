@@ -248,7 +248,7 @@
         <p class="subtitle">Erfassung familiärer Regeln, heutiger Reaktionen und aktueller Situationen.</p>
     </header>
 
-    <!-- Anleitung direkt vor Beginn -->
+    <!-- Anleitung vor Beginn -->
     <div class="guide-card">
         <div class="guide-title">So funktioniert es</div>
         <p>Fülle die Fragen so aus, wie sie für dich passen. Es gibt dabei keine richtigen oder falschen Antworten.</p>
@@ -273,11 +273,11 @@
 
         <div class="field-group">
             <div class="slider-header">
-                <label for="scale1">1. Eigener Weg: Zögern oder Unbehagen, wenn Entscheidungen von der Familie abweichen</label>
+                <label for="scale1">1. Eigener Weg: Sofortige Zweifel oder ein ungutes Gefühl, sobald du etwas anders machst, als es in deiner Familie üblich ist</label>
                 <span class="slider-val" id="val1">3</span>
             </div>
             <input type="range" id="scale1" min="1" max="5" value="3" oninput="updateVal('val1', this.value)">
-            <div class="slider-labels"><span>Kenne ich nicht</span><span>Kenne ich sehr gut</span></div>
+            <div class="slider-labels"><span>Entscheide unabhängig</span><span>Zweifle sofort beim Andersmachen</span></div>
         </div>
 
         <div class="field-group">
@@ -406,7 +406,7 @@ Analysiere nicht nur die einzelnen Antworten isoliert voneinander. Prüfe auch, 
 Wichtig: Ein Zusammenhang zwischen zwei Angaben ist zunächst nur eine Beobachtung, keine Ursache. Gehe nicht automatisch davon aus, dass alle vier Bereiche zusammengehören. Wenn die Angaben keine ausreichende Grundlage für einen Ablauf oder Zusammenhang bieten, benenne ausdrücklich: „Dafür geben die vorliegenden Angaben keinen ausreichenden Hinweis.“
 
 EINGABEN DES TEILNEHMERS:
-- Zögern/Unbehagen bei Abweichung von der Familie: ${s1}/5
+- Zweifel / ungutes Gefühl beim Abweichen vom Familienstandard: ${s1}/5
 - Schwer zur Ruhe kommen / gedanklich bei der nächsten Aufgabe: ${s2}/5
 - Automatische Übernahme fremder Aufgaben: ${s3}/5
 - Zurückhaltung bei eigenen Positionen/Erfolgen: ${s4}/5
@@ -443,7 +443,7 @@ Nach deiner Antwort darf der Teilnehmer selbst entscheiden, welche Punkte er wei
             toast.style.display = 'block';
             
             setTimeout(() => {
-                window.open('https://gemini.google.com/app', '_blank');
+                window.open('https://gemini.google.com', '_blank');
             }, 350);
         }).catch(err => {
             alert('Fehler beim automatischen Kopieren. Bitte Text manuell kopieren.');

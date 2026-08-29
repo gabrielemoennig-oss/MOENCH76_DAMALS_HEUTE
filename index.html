@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alte Regeln im heutigen Alltag</title>
+    <style>
+        :root {
+            --bg-color: #0f141c;
+            --card-bg: #18202c;
+            --card-border: #283548;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #0ea5e9;
+            --input-bg: #0b0f17;
+            --input-border: #334155;
+            --radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 30px 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 100%;
+        }
+
+        header {
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #f8fafc;
+            margin-bottom: 6px;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .guide-card {
+            background: rgba(56, 189, 248, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+
+        .guide-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .guide-card p {
+            margin-bottom: 10px;
+        }
+
+        .guide-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .guide-steps {
+            list-style: none;
+            margin: 12px 0;
+            padding-left: 0;
+        }
+
+        .guide-steps li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .guide-steps li::before {
+            content: "•";
+            position: absolute;
+            left: 6px;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .guide-steps strong {
+            color: var(--text-main);
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        .section-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+        }
+
+        .field-group {
+            margin-bottom: 18px;
+        }
+
+        .field-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 6px;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #cbd5e1;
+        }
+
+        .slider-val {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+            background: var(--input-bg);
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid var(--card-border);
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: var(--input-bg);
+            border-radius: 3px;
+            outline: none;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        textarea {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: var(--radius);
+            color: var(--text-main);
+            padding: 10px 12px;
+            font-size: 0.9rem;
+            resize: vertical;
+            min-height: 70px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px var(--accent);
+        }
+
+        .btn-container {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        button {
+            background-color: var(--accent);
+            color: #0b0f17;
+            border: none;
+            border-radius: var(--radius);
+            padding: 14px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn-hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+            line-height: 1.4;
+        }
+
+        .toast {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: var(--radius);
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-size: 0.85rem;
+            text-align: center;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Alte Regeln im heutigen Alltag</h1>
+        <p class="subtitle">Erfassung familiärer Regeln, heutiger Reaktionen und aktueller Situationen.</p>
+    </header>
+
+    <!-- Anleitung direkt vor Beginn -->
+    <div class="guide-card">
+        <div class="guide-title">So funktioniert es</div>
+        <p>Fülle die Fragen so aus, wie sie für dich passen. Es gibt dabei keine richtigen oder falschen Antworten.</p>
+        <p>Wenn du fertig bist, klicke auf <strong>„Auswertung mit Gemini starten“</strong>. Deine Angaben werden zu einer Nachricht zusammengefasst und automatisch in die Zwischenablage kopiert. Anschließend öffnet sich Gemini.</p>
+        
+        <ul class="guide-steps">
+            <li><strong>Am PC:</strong> Klicke in das Eingabefeld von Gemini und drücke <code>Strg + V</code>.</li>
+            <li><strong>Am Mac:</strong> Drücke <code>Cmd + V</code>.</li>
+            <li><strong>Am Smartphone / Tablet:</strong> Halte den Finger etwas länger im Eingabefeld gedrückt und wähle „Einfügen“.</li>
+        </ul>
+
+        <p>Sende die Nachricht anschließend an Gemini.</p>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">
+            Die Antwort von Gemini ist kein festes Ergebnis. Du kannst danach mit Gemini weiterdenken, Fragen stellen, einzelne Punkte vertiefen oder auch ganz andere Richtungen verfolgen. Du entscheidest selbst, was davon für dich interessant ist.
+        </p>
+    </div>
+
+    <!-- Teil 1: Beobachtbare Reaktionen -->
+    <div class="section-card">
+        <div class="section-title">1. Wie vertraut ist dir das?</div>
+        <div class="section-desc">Schiebe die Regler dahin, wie gut du diese Reaktionen aus deinem Alltag kennst (1 = Gar nicht, 5 = Sehr vertraut).</div>
+
+        <div class="field-group">
+            <div class="slider-header">
+                <label for="scale1">1. Eigener Weg: Zögern oder Unbehagen, wenn Entscheidungen von der Familie abweichen</label>
+                <span class="slider-val" id="val1">3</span>
+            </div>
+            <input type="range" id="scale1" min="1" max="5" value="3" oninput="updateVal('val1', this.value)">
+            <div class="slider-labels"><span>Kenne ich nicht</span><span>Kenne ich sehr gut</span></div>
+        </div>
+
+        <div class="field-group">
+            <div class="slider-header">
+                <label for="scale2">2. Schwer zur Ruhe kommen: Auch wenn eigentlich Pause ist, gedanklich schon bei der nächsten Aufgabe sein</label>
+                <span class="slider-val" id="val2">3</span>
+            </div>
+            <input type="range" id="scale2" min="1" max="5" value="3" oninput="updateVal('val2', this.value)">
+            <div class="slider-labels"><span>Ich kann gut abschalten</span><span>Ich bin gedanklich ständig bei der nächsten Aufgabe</span></div>
+        </div>
+
+        <div class="field-group">
+            <div class="slider-header">
+                <label for="scale3">3. Verantwortung übernehmen: Aufgaben oder Probleme anderer automatisch annehmen</label>
+                <span class="slider-val" id="val3">3</span>
+            </div>
+            <input type="range" id="scale3" min="1" max="5" value="3" oninput="updateVal('val3', this.value)">
+            <div class="slider-labels"><span>Klare Abgrenzung</span><span>Automatische Übernahme</span></div>
+        </div>
+
+        <div class="field-group">
+            <div class="slider-header">
+                <label for="scale4">4. Zurückhaltung: Eigene Positionen oder Erfolge lieber nicht in den Vordergrund stellen</label>
+                <span class="slider-val" id="val4">3</span>
+            </div>
+            <input type="range" id="scale4" min="1" max="5" value="3" oninput="updateVal('val4', this.value)">
+            <div class="slider-labels"><span>Offen sichtbar</span><span>Deutliche Zurückhaltung</span></div>
+        </div>
+    </div>
+
+    <!-- Teil 2: Familiärer Kontext -->
+    <div class="section-card">
+        <div class="section-title">2. Der Blick auf die Familie</div>
+        <div class="section-desc">Ein paar kurze Stichpunkte zu deiner bisherigen Familiengeschichte:</div>
+
+        <div class="field-group">
+            <label for="txtRules">Welche typischen Sätze oder Regeln gab es bei euch?</label>
+            <textarea id="txtRules" placeholder="z. B. 'Erst die Arbeit, dann das Vergnügen', 'Über Geld spricht man nicht', 'Stell dich nicht so an'"></textarea>
+        </div>
+
+        <div class="field-group">
+            <label for="txtHistory">Welche schwierigen Zeiten oder Krisen gab es bei Eltern/Großeltern?</label>
+            <textarea id="txtHistory" placeholder="z. B. Flucht, finanzielle Notlagen, Streit um Erbe, frühe Verluste, schwere Trennungen"></textarea>
+        </div>
+
+        <div class="field-group">
+            <label for="txtCurrent">Wo gibt es heute im Alltag oder Beruf die meiste Reibung?</label>
+            <textarea id="txtCurrent" placeholder="z. B. Ich kann schwer Nein sagen, ich halte mich mit meiner Meinung zurück, ich übernehme schnell Aufgaben anderer"></textarea>
+        </div>
+    </div>
+
+    <!-- Aktion -->
+    <div class="btn-container">
+        <button id="btnSubmit" onclick="generateAndTransfer()">Auswertung mit Gemini starten</button>
+        <p class="btn-hint">Deine Eingaben werden automatisch in die Zwischenablage kopiert. Im neuen Tab einfach einfügen und absenden.</p>
+        <div id="toast" class="toast">✓ Deine Eingaben wurden kopiert. Gemini wird geöffnet. Füge den Text dort ein und sende ihn ab.</div>
+    </div>
+</div>
+
+<script>
+    function updateVal(id, val) {
+        document.getElementById(id).innerText = val;
+    }
+
+    function generateAndTransfer() {
+        const s1 = document.getElementById('scale1').value;
+        const s2 = document.getElementById('scale2').value;
+        const s3 = document.getElementById('scale3').value;
+        const s4 = document.getElementById('scale4').value;
+
+        const rules = document.getElementById('txtRules').value.trim() || "Keine Angabe";
+        const history = document.getElementById('txtHistory').value.trim() || "Keine Angabe";
+        const current = document.getElementById('txtCurrent').value.trim() || "Keine Angabe";
+
+        const promptText = `Du bist ein nüchternes Beobachtungs- und Analysewerkzeug.
+Deine Analyse soll im Hintergrund systemisch präzise sein, aber für einen Menschen im Alltag des Jahres 2026 verständlich und natürlich klingen.
+
+WICHTIG:
+Denke systemisch, aber schreibe menschlich.
+Verwende deshalb möglichst keine Fachbegriffe wie „Kopplung“, „Invariante“, „Rückkopplung“, „Systemdynamik“, „Phänomenologie“ oder „Zirkularität“ in deiner Antwort. Übersetze solche Zusammenhänge in normale Alltagssprache.
+
+Beispiel:
+Nicht: „Hier zeigt sich eine starke familiäre Kopplung.“
+Sondern: „Es fällt auf, dass diese heutige Reaktion zu der familiären Regel passen könnte, dass …“
+Nicht: „Das Verhalten stabilisiert das System.“
+Sondern: „Damit konnte früher möglicherweise dafür gesorgt werden, dass es in der Familie ruhig blieb oder Aufgaben verteilt waren.“
+Nicht: „Die alte Invariante wirkt fort.“
+Sondern: „Diese alte Regel scheint möglicherweise bis heute mitzulaufen.“
+Nicht: „Es besteht eine zirkuläre Rückkopplung.“
+Sondern: „Das kann sich gegenseitig verstärken: Je mehr du ..., desto mehr ..., wodurch wiederum ...“
+
+Die Sprache soll:
+- klar
+- menschlich
+- direkt
+- respektvoll
+- nüchtern
+- verständlich
+- nicht belehrend
+sein.
+
+Vermeide:
+- therapeutische Fachsprache
+- Coaching-Sprache
+- Motivationssprüche
+- spirituelle Erklärungen
+- Diagnosen
+- Schuldzuweisungen
+- pauschale Aussagen über Familien
+- Aussagen darüber, was „richtig“ oder „falsch“ ist
+
+METHODISCHE LEITLINIE ZUR BELEGLAGE:
+Mache keine voreiligen Behauptungen über Ursachen. Eine familiäre Regel allein ist kein Beleg dafür, dass sie das heutige Verhalten verursacht.
+Unterscheide in deiner Analyse strikt zwischen:
+1. Direkter Übereinstimmung (was aus den Antworten tatsächlich klar beschrieben ist),
+2. Möglicher Verbindung (wo eine plausible Hypothese denkbar ist – kennzeichne diese immer ausdrücklich als Möglichkeit),
+3. Fehlendem Zusammenhang (wo aus den Angaben keine Verbindung ableitbar ist oder Leerstellen bleiben).
+Bleibe eng an den konkreten Angaben. Erzeuge keine biografische Geschichte aus wenigen Stichpunkten. Wenn mehrere Erklärungen möglich sind, stelle sie nebeneinander.
+
+EINGABEN DES TEILNEHMERS:
+- Zögern/Unbehagen bei Abweichung von der Familie: ${s1}/5
+- Schwer zur Ruhe kommen / gedanklich bei der nächsten Aufgabe: ${s2}/5
+- Automatische Übernahme fremder Aufgaben: ${s3}/5
+- Zurückhaltung bei eigenen Positionen/Erfolgen: ${s4}/5
+- Familiäre Leitsätze / Regeln: "${rules}"
+- Historischer Kontext / Krisen der Familie: "${history}"
+- Aktuelle Reibung im Alltag/Beruf (2026): "${current}"
+
+STRUKTURIERE DEINE ANTWORT IN 4 KURZEN ABSCHNITTEN:
+
+1. WAS FÄLLT AUF?
+Beschreibe zunächst einfach, was sich aus den Antworten erkennen lässt.
+Prüfe anschließend die Beleglage: Gibt es eine direkte Übereinstimmung, lediglich eine denkbare Verbindung oder keinen erkennbaren Zusammenhang zwischen den heutigen Reaktionen und den familiären Regeln? Benenne Leerstellen ausdrücklich.
+
+2. WELCHE FUNKTION KÖNNTE DAS FRÜHER GEHABT HABEN?
+Falls eine Verbindung plausibel erscheint, beschreibe in einfacher Sprache, wofür dieses Verhalten in der damaligen Situation hilfreich gewesen sein könnte (z. B. Konflikte vermeiden, dazugehören, Sicherheit schaffen, Aufgaben verteilen).
+Behaupte nicht, dass dies tatsächlich die Ursache war, sondern stelle es rein als mögliche Funktion dar.
+
+3. WAS MACHT DIESES MUSTER HEUTE?
+Zeige beide Seiten:
+- Wo kann diese Eigenschaft heute weiterhin hilfreich sein?
+- Wo kann genau dieselbe Reaktion heute Probleme oder unnötige Belastung erzeugen?
+Behandle die Eigenschaft nicht als Fehler. Zeige stattdessen, dass ein Verhalten in unterschiedlichen Situationen unterschiedliche Folgen haben kann.
+
+4. WAS GEHÖRT HEUTE ZU MIR?
+Formuliere einen einzigen klaren, menschlichen Satz, der zwischen der damaligen Geschichte der Familie und der heutigen eigenen Verantwortung unterscheidet.
+Der Satz soll sich nicht wie ein Therapiesatz oder Motivationsspruch anhören.
+Er soll schlicht, nüchtern und glaubwürdig sein.
+
+WICHTIGER HINWEIS FÜR DEN WEITEREN DIALOG:
+Nach deiner Antwort darf der Teilnehmer selbst entscheiden, welche Punkte er weiterverfolgen möchte. Wenn er anschließend Fragen stellt, beantworte diese im gleichen nüchternen und menschlichen Stil. Halte die ursprüngliche Analyse nicht für eine endgültige Erklärung.`;
+
+        navigator.clipboard.writeText(promptText).then(() => {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            
+            setTimeout(() => {
+                window.open('https://gemini.google.com/app', '_blank');
+            }, 350);
+        }).catch(err => {
+            alert('Fehler beim automatischen Kopieren. Bitte Text manuell kopieren.');
+        });
+    }
+</script>
+
+</body>
+</html>

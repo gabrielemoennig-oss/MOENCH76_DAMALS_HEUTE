@@ -13,6 +13,8 @@
             --text-muted: #94a3b8;
             --accent: #38bdf8;
             --accent-hover: #0ea5e9;
+            --btn-secondary: #243042;
+            --btn-secondary-hover: #334155;
             --input-bg: #0b0f17;
             --input-border: #334155;
             --radius: 8px;
@@ -199,10 +201,12 @@
 
         .btn-container {
             margin-top: 25px;
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        button {
+        button.btn-primary {
             background-color: var(--accent);
             color: #0b0f17;
             border: none;
@@ -215,20 +219,39 @@
             transition: background-color 0.2s;
         }
 
-        button:hover {
+        button.btn-primary:hover {
             background-color: var(--accent-hover);
+        }
+
+        button.btn-secondary {
+            background-color: var(--btn-secondary);
+            color: #f8fafc;
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            padding: 14px 24px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        button.btn-secondary:hover {
+            background-color: var(--btn-secondary-hover);
+            border-color: var(--text-muted);
         }
 
         .btn-hint {
             font-size: 0.8rem;
             color: var(--text-muted);
-            margin-top: 10px;
+            margin-top: 4px;
             line-height: 1.4;
+            text-align: center;
         }
 
         .toast {
             display: none;
-            margin-top: 12px;
+            margin-top: 8px;
             padding: 12px;
             border-radius: var(--radius);
             background: rgba(56, 189, 248, 0.1);
@@ -252,17 +275,17 @@
     <div class="guide-card">
         <div class="guide-title">So funktioniert es</div>
         <p>Fülle die Fragen so aus, wie sie für dich passen. Es gibt dabei keine richtigen oder falschen Antworten.</p>
-        <p>Wenn du fertig bist, klicke auf <strong>„Auswertung mit Gemini starten“</strong>. Deine Angaben werden zu einer Nachricht zusammengefasst und automatisch in die Zwischenablage kopiert. Anschließend öffnet sich Gemini.</p>
+        <p>Wenn du fertig bist, wähle unten deinen bevorzugten Dienst (<strong>Gemini</strong> oder <strong>ChatGPT</strong>). Deine Angaben werden automatisch in die Zwischenablage kopiert und der Chat öffnet sich.</p>
         
         <ul class="guide-steps">
-            <li><strong>Am PC:</strong> Klicke in das Eingabefeld von Gemini und drücke <code>Strg + V</code>.</li>
+            <li><strong>Am PC:</strong> Klicke in das Eingabefeld des Chats und drücke <code>Strg + V</code>.</li>
             <li><strong>Am Mac:</strong> Drücke <code>Cmd + V</code>.</li>
             <li><strong>Am Smartphone / Tablet:</strong> Halte den Finger etwas länger im Eingabefeld gedrückt und wähle „Einfügen“.</li>
         </ul>
 
-        <p>Sende die Nachricht anschließend an Gemini.</p>
+        <p>Sende die Nachricht anschließend ab.</p>
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">
-            Die Antwort von Gemini ist kein festes Ergebnis. Du kannst danach mit Gemini weiterdenken, Fragen stellen, einzelne Punkte vertiefen oder auch ganz andere Richtungen verfolgen. Du entscheidest selbst, was davon für dich interessant ist.
+            Die Antwort ist kein festes Ergebnis. Du kannst danach mit der KI weiterdenken, Fragen stellen, einzelne Punkte vertiefen oder ganz andere Richtungen verfolgen.
         </p>
     </div>
 
@@ -329,11 +352,12 @@
         </div>
     </div>
 
-    <!-- Aktion -->
+    <!-- Aktionen -->
     <div class="btn-container">
-        <button id="btnSubmit" onclick="generateAndTransfer()">Auswertung mit Gemini starten</button>
-        <p class="btn-hint">Deine Eingaben werden automatisch in die Zwischenablage kopiert. Im neuen Tab einfach einfügen und absenden.</p>
-        <div id="toast" class="toast">✓ Deine Eingaben wurden kopiert. Gemini wird geöffnet. Füge den Text dort ein und sende ihn ab.</div>
+        <button class="btn-primary" onclick="generateAndTransfer('gemini')">Auswertung mit Gemini starten</button>
+        <button class="btn-secondary" onclick="generateAndTransfer('chatgpt')">Auswertung mit ChatGPT starten (auch ohne Google-Konto)</button>
+        <p class="btn-hint">Deine Angaben werden automatisch kopiert. Wähle einfach den Dienst, bei dem du angemeldet bist (oder ChatGPT für direkten Zugriff).</p>
+        <div id="toast" class="toast">✓ Eingaben kopiert! Der Chat wird geöffnet. Füge den Text dort ein und sende ihn ab.</div>
     </div>
 </div>
 
@@ -342,7 +366,7 @@
         document.getElementById(id).innerText = val;
     }
 
-    function generateAndTransfer() {
+    function generateAndTransfer(target) {
         const s1 = document.getElementById('scale1').value;
         const s2 = document.getElementById('scale2').value;
         const s3 = document.getElementById('scale3').value;
@@ -443,7 +467,11 @@ Nach deiner Antwort darf der Teilnehmer selbst entscheiden, welche Punkte er wei
             toast.style.display = 'block';
             
             setTimeout(() => {
-                window.open('https://gemini.google.com', '_blank');
+                if (target === 'gemini') {
+                    window.open('https://gemini.google.com/app', '_blank');
+                } else if (target === 'chatgpt') {
+                    window.open('https://chatgpt.com', '_blank');
+                }
             }, 350);
         }).catch(err => {
             alert('Fehler beim automatischen Kopieren. Bitte Text manuell kopieren.');

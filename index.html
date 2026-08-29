@@ -1,4 +1,4 @@
-html_neutral = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
@@ -332,6 +332,12 @@ html_neutral = """<!DOCTYPE html>
             <input type="range" id="scale4" min="1" max="5" value="3" oninput="updateVal('val4', this.value)">
             <div class="slider-labels"><span>Trifft gar nicht zu</span><span>Trifft voll und ganz zu</span></div>
         </div>
+        
+        <div class="field-group">
+            <label for="txtExtra">5. Gibt es etwas, das hier noch fehlt?</label>
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; margin-top: 4px;">Gibt es eine wiederkehrende Reaktion, ein Verhalten oder eine Situation, die für dich wichtig ist, aber in den bisherigen Aussagen nicht vorkommt?</div>
+            <textarea id="txtExtra" placeholder="Optional – beschreibe nur, was dir selbst auffällt."></textarea>
+        </div>
     </div>
 
     <!-- Teil 2: Familiärer Kontext -->
@@ -374,6 +380,7 @@ html_neutral = """<!DOCTYPE html>
         const s2 = document.getElementById('scale2').value;
         const s3 = document.getElementById('scale3').value;
         const s4 = document.getElementById('scale4').value;
+        const extra = document.getElementById('txtExtra').value.trim() || "Keine Angabe";
 
         const rules = document.getElementById('txtRules').value.trim() || "Keine Angabe";
         const history = document.getElementById('txtHistory').value.trim() || "Keine Angabe";
@@ -425,18 +432,20 @@ Unterscheide in deiner Analyse strikt zwischen:
 Bleibe eng an den konkreten Angaben. Erzeuge keine biografische Geschichte aus wenigen Stichpunkten. Wenn mehrere Erklärungen möglich sind, stelle sie nebeneinander.
 
 ANALYSETIEFE (WECHSELWIRKUNGEN & ABLÄUFE):
-Analysiere nicht nur die einzelnen Antworten isoliert voneinander. Prüfe auch, ob zwischen den vier beschriebenen Bereichen erkennbare Wechselwirkungen bestehen:
+Analysiere die vier vorgegebenen Bereiche und – falls ausgefüllt – auch die freie Beobachtung. Behandle die vier Bereiche nicht als vollständige Beschreibung der Person. Prüfe ausdrücklich, ob die freie Beobachtung einen anderen oder zusätzlichen Zusammenhang sichtbar macht. Wenn die freie Beobachtung den vorgegebenen Bereichen widerspricht, passe die Analyse nicht an die vier Bereiche an, sondern benenne die Abweichung.
+Prüfe zusätzlich mögliche Wechselwirkungen:
 - Welche Reaktionen treten gemeinsam stark oder gemeinsam schwach auf?
 - Welche Bereiche könnten sich gegenseitig verstärken oder begleiten?
 - Gibt es auffällige Gegensätze oder Spannungen zwischen den Angaben?
 - Prüfe mögliche Abläufe: In welcher heutigen Situation wird die Reaktion ausgelöst, welche unmittelbare Folge entsteht daraus und verstärkt diese Folge die Reaktion möglicherweise weiter?
-Wichtig: Ein Zusammenhang zwischen zwei Angaben ist zunächst nur eine Beobachtung, keine Ursache. Gehe nicht automatisch davon aus, dass alle vier Bereiche zusammengehören. Wenn die Angaben keine ausreichende Grundlage für einen Ablauf oder Zusammenhang bieten, benenne ausdrücklich: „Dafür geben die vorliegenden Angaben keinen ausreichenden Hinweis.“
+Wichtig: Ein Zusammenhang zwischen zwei Angaben ist zunächst nur eine Beobachtung, keine Ursache. Gehe nicht automatisch davon aus, dass alle Felder zusammengehören. Wenn die Angaben keine ausreichende Grundlage für einen Ablauf oder Zusammenhang bieten, benenne ausdrücklich: „Dafür geben die vorliegenden Angaben keinen ausreichenden Hinweis.“
 
 EINGABEN DES TEILNEHMERS:
 - Zweifel beim Abweichen vom Familienstandard: ${s1}/5
 - Gedanklich schon bei der nächsten Aufgabe: ${s2}/5
 - Automatische Übernahme fremder Aufgaben: ${s3}/5
 - Zurückhaltung bei eigenen Positionen/Erfolgen: ${s4}/5
+- Eigene Ergänzung (fehlendes Muster / Beobachtung): "${extra}"
 - Familiäre Leitsätze / Regeln: "${rules}"
 - Historischer Kontext / Krisen der Familie: "${history}"
 - Aktuelle Reibung im Alltag/Beruf (2026): "${current}"
@@ -445,6 +454,7 @@ STRUKTURIERE DEINE ANTWORT IN 5 KURZEN ABSCHNITTEN:
 
 1. WAS FÄLLT AUF?
 Beschreibe, was sich aus den Antworten erkennen lässt – sowohl bei den Einzelwerten als auch bei auffälligen Kombinationen, Spannungen oder möglichen Abläufen.
+Prüfe außerdem, ob die Antworten Hinweise darauf geben, dass die vier vorgegebenen Bereiche den beschriebenen Alltag nur unvollständig abbilden. Wenn eine freie Beobachtung deutlich außerhalb dieser Bereiche liegt, behandle sie als eigenständige Information und nicht als Variante eines bestehenden Bereichs.
 Prüfe die Beleglage: Gibt es eine direkte Übereinstimmung, lediglich eine denkbare Verbindung oder keinen erkennbaren Zusammenhang zwischen den heutigen Reaktionen und den familiären Regeln?
 
 2. WELCHE FUNKTION KÖNNTE DAS FRÜHER GEHABT HABEN?
@@ -479,7 +489,7 @@ Nach deiner Antwort darf der Teilnehmer selbst entscheiden, ob und welche Punkte
             
             setTimeout(() => {
                 if (target === 'gemini') {
-                    window.open('https://gemini.google.com', '_blank');
+                    window.open('https://gemini.google.com/app', '_blank');
                 } else if (target === 'chatgpt') {
                     window.open('https://chatgpt.com', '_blank');
                 }
@@ -492,9 +502,3 @@ Nach deiner Antwort darf der Teilnehmer selbst entscheiden, ob und welche Punkte
 
 </body>
 </html>
-"""
-
-with open("index.html", "w", encoding="utf-8") as f:
-    f.write(html_neutral)
-
-print("index.html mit neutralen Skalen und neuem Titel aktualisiert.")

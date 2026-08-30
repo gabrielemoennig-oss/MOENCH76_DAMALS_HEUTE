@@ -245,10 +245,10 @@
         }
 
         .btn-hint {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
             margin-top: 4px;
-            line-height: 1.4;
+            line-height: 1.5;
             text-align: center;
         }
 
@@ -380,7 +380,12 @@
     <div class="btn-container">
         <button class="btn-primary" onclick="generateAndTransfer('gemini')">Auswertung mit Gemini starten</button>
         <button class="btn-secondary" onclick="generateAndTransfer('chatgpt')">Auswertung mit ChatGPT starten (auch ohne Google-Konto)</button>
-        <p class="btn-hint">Deine Angaben werden automatisch kopiert. Wähle einfach den Dienst, bei dem du angemeldet bist (oder ChatGPT für direkten Zugriff).</p>
+        
+        <p class="btn-hint" style="margin-top: 15px;">
+            Du kannst auch jede andere KI für die Reflexion nutzen:<br>
+            <a href="#" onclick="event.preventDefault(); generateAndTransfer('copy')" style="color: var(--accent); font-weight: 500; text-decoration: underline; cursor: pointer; display: inline-block; margin-top: 5px;">Nur Text kopieren (z. B. für Claude)</a>
+        </p>
+        
         <div id="toast" class="toast"></div>
     </div>
 </div>
@@ -522,15 +527,25 @@ Schließe diesen Abschnitt zwingend mit diesem Hinweis ab:
 WICHTIGER HINWEIS FÜR DEN WEITEREN DIALOG:
 Nach deiner Antwort darf der Teilnehmer selbst entscheiden, ob und welche Punkte er weiterverfolgen möchte. Wenn er anschließend Fragen stellt, beantworte diese im gleichen nüchternen und menschlichen Stil. Halte die ursprüngliche Analyse nicht für eine endgültige Erklärung.`;
 
-        const url = target === 'gemini' ? 'https://gemini.google.com/app' : 'https://chatgpt.com';
-        const serviceName = target === 'gemini' ? 'Gemini' : 'ChatGPT';
+        let url = null;
+        let serviceName = 'deiner KI';
+        
+        if (target === 'gemini') {
+            url = 'https://gemini.google.com/app';
+            serviceName = 'Gemini';
+        } else if (target === 'chatgpt') {
+            url = 'https://chatgpt.com';
+            serviceName = 'ChatGPT';
+        }
 
         // 1. Synchrone Fensterreservierung (verhindert meistens Safari-Blocker)
         let newWindow = null;
-        try {
-            newWindow = window.open('', '_blank');
-        } catch (e) {
-            // Falls open() komplett blockiert wird
+        if (url) {
+            try {
+                newWindow = window.open('', '_blank');
+            } catch (e) {
+                // Falls open() komplett blockiert wird
+            }
         }
 
         // 2. Asynchrone Zwischenablage
@@ -538,7 +553,9 @@ Nach deiner Antwort darf der Teilnehmer selbst entscheiden, ob und welche Punkte
             const toast = document.getElementById('toast');
             
             // 3. Fallback oder Weiterleitung
-            if (newWindow) {
+            if (target === 'copy') {
+                toast.innerHTML = `✓ Eingaben kopiert! Du kannst den Text nun in das KI-Tool deiner Wahl (z. B. Claude) einfügen.`;
+            } else if (newWindow) {
                 newWindow.location.href = url;
                 toast.innerHTML = `✓ Eingaben kopiert! ${serviceName} wird geöffnet. Füge den Text dort ein und sende ihn ab.`;
             } else {

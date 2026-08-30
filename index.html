@@ -264,6 +264,15 @@
             text-align: center;
             line-height: 1.4;
         }
+        
+        .fallback-link {
+            color: var(--accent);
+            font-weight: bold;
+            text-decoration: underline;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 6px;
+        }
     </style>
 </head>
 <body>
@@ -372,7 +381,7 @@
         <button class="btn-primary" onclick="generateAndTransfer('gemini')">Auswertung mit Gemini starten</button>
         <button class="btn-secondary" onclick="generateAndTransfer('chatgpt')">Auswertung mit ChatGPT starten (auch ohne Google-Konto)</button>
         <p class="btn-hint">Deine Angaben werden automatisch kopiert. Wähle einfach den Dienst, bei dem du angemeldet bist (oder ChatGPT für direkten Zugriff).</p>
-        <div id="toast" class="toast">✓ Eingaben kopiert! Der Chat wird geöffnet. Füge den Text dort ein und sende ihn ab.</div>
+        <div id="toast" class="toast"></div>
     </div>
 </div>
 
@@ -513,19 +522,32 @@ Schließe diesen Abschnitt zwingend mit diesem Hinweis ab:
 WICHTIGER HINWEIS FÜR DEN WEITEREN DIALOG:
 Nach deiner Antwort darf der Teilnehmer selbst entscheiden, ob und welche Punkte er weiterverfolgen möchte. Wenn er anschließend Fragen stellt, beantworte diese im gleichen nüchternen und menschlichen Stil. Halte die ursprüngliche Analyse nicht für eine endgültige Erklärung.`;
 
+        const url = target === 'gemini' ? 'https://gemini.google.com/app' : 'https://chatgpt.com';
+        const serviceName = target === 'gemini' ? 'Gemini' : 'ChatGPT';
+
+        // 1. Synchrone Fensterreservierung (verhindert meistens Safari-Blocker)
+        let newWindow = null;
+        try {
+            newWindow = window.open('', '_blank');
+        } catch (e) {
+            // Falls open() komplett blockiert wird
+        }
+
+        // 2. Asynchrone Zwischenablage
         navigator.clipboard.writeText(promptText).then(() => {
             const toast = document.getElementById('toast');
-            toast.style.display = 'block';
             
-            setTimeout(() => {
-                if (target === 'gemini') {
-                    window.open('https://gemini.google.com/app', '_blank');
-                } else if (target === 'chatgpt') {
-                    window.open('https://chatgpt.com', '_blank');
-                }
-            }, 350);
+            // 3. Fallback oder Weiterleitung
+            if (newWindow) {
+                newWindow.location.href = url;
+                toast.innerHTML = `✓ Eingaben kopiert! ${serviceName} wird geöffnet. Füge den Text dort ein und sende ihn ab.`;
+            } else {
+                toast.innerHTML = `✓ Eingaben kopiert! Pop-up blockiert.<br><a href="${url}" target="_blank" class="fallback-link">Klicke hier, um ${serviceName} manuell zu öffnen</a>`;
+            }
+            toast.style.display = 'block';
+
         }).catch(err => {
-            alert('Fehler beim automatischen Kopieren. Bitte Text manuell kopieren.');
+            alert('Fehler beim Kopieren. Bitte überprüfe deine Browser-Berechtigungen.');
         });
     }
 </script>

@@ -338,6 +338,12 @@
             <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; margin-top: 4px;">Gibt es eine wiederkehrende Reaktion, ein Verhalten oder eine Situation, die für dich wichtig ist, aber in den bisherigen Aussagen nicht vorkommt?</div>
             <textarea id="txtExtra" placeholder="Optional – beschreibe nur, was dir selbst auffällt."></textarea>
         </div>
+
+        <div class="field-group" style="margin-top: 20px;">
+            <label for="txtSituation">6. Eine konkrete Situation</label>
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; margin-top: 4px;">Beschreibe eine konkrete Situation aus den letzten Tagen oder Wochen, in der eine der oben genannten Reaktionen aufgetreten ist. Was ist passiert, was hast du getan und was geschah danach?</div>
+            <textarea id="txtSituation" placeholder="Optional – beschreibe einen konkreten Ablauf."></textarea>
+        </div>
     </div>
 
     <!-- Teil 2: Familiärer Kontext -->
@@ -381,6 +387,7 @@
         const s3 = document.getElementById('scale3').value;
         const s4 = document.getElementById('scale4').value;
         const extra = document.getElementById('txtExtra').value.trim() || "Keine Angabe";
+        const situation = document.getElementById('txtSituation').value.trim() || "Keine Angabe";
 
         const rules = document.getElementById('txtRules').value.trim() || "Keine Angabe";
         const history = document.getElementById('txtHistory').value.trim() || "Keine Angabe";
@@ -433,12 +440,25 @@ Bleibe eng an den konkreten Angaben. Erzeuge keine biografische Geschichte aus w
 
 ANALYSETIEFE (WECHSELWIRKUNGEN & ABLÄUFE):
 Analysiere die vier vorgegebenen Bereiche und – falls ausgefüllt – auch die freie Beobachtung. Behandle die vier Bereiche nicht als vollständige Beschreibung der Person. Prüfe ausdrücklich, ob die freie Beobachtung einen anderen oder zusätzlichen Zusammenhang sichtbar macht. Wenn die freie Beobachtung den vorgegebenen Bereichen widerspricht, passe die Analyse nicht an die vier Bereiche an, sondern benenne die Abweichung.
-Prüfe zusätzlich mögliche Wechselwirkungen:
-- Welche Reaktionen treten gemeinsam stark oder gemeinsam schwach auf?
-- Welche Bereiche könnten sich gegenseitig verstärken oder begleiten?
-- Gibt es auffällige Gegensätze oder Spannungen zwischen den Angaben?
-- Prüfe mögliche Abläufe: In welcher heutigen Situation wird die Reaktion ausgelöst, welche unmittelbare Folge entsteht daraus und verstärkt diese Folge die Reaktion möglicherweise weiter?
-Wichtig: Ein Zusammenhang zwischen zwei Angaben ist zunächst nur eine Beobachtung, keine Ursache. Gehe nicht automatisch davon aus, dass alle Felder zusammengehören. Wenn die Angaben keine ausreichende Grundlage für einen Ablauf oder Zusammenhang bieten, benenne ausdrücklich: „Dafür geben die vorliegenden Angaben keinen ausreichenden Hinweis.“
+
+ANALYSE DER KONKRETEN SITUATION:
+Falls eine konkrete Alltagssituation angegeben wurde, analysiere sie als eigenen Ablauf. Unterscheide dabei möglichst zwischen:
+1. Ausgangssituation
+2. Auslösendem Ereignis
+3. eigener unmittelbarer Reaktion
+4. Reaktion des Umfeldes
+5. unmittelbarer Folge
+6. möglicher weiterer Folge
+7. möglicher Verstärkung oder Unterbrechung dieses Ablaufs
+Zeige dabei nicht nur, WAS passiert ist, sondern auch, wie die einzelnen Schritte miteinander verbunden sein könnten. Wenn die Angaben keinen vollständigen Ablauf hergeben, ergänze die fehlenden Schritte nicht eigenständig. Benenne stattdessen, welcher Teil des Ablaufs nicht beobachtbar ist.
+Prüfe außerdem:
+- Wo beginnt der Ablauf?
+- An welcher Stelle entsteht die eigene Reaktion?
+- Welche Reaktion des Umfeldes folgt darauf?
+- Was wird durch die eigene Reaktion kurzfristig ermöglicht?
+- Was könnte dadurch langfristig entstehen?
+- Gibt es eine Stelle, an der der Ablauf auch anders verlaufen könnte?
+Die letzte Frage ist keine Aufforderung zur Veränderung, sondern dient ausschließlich dazu, die Struktur des Ablaufs sichtbar zu machen.
 
 EINGABEN DES TEILNEHMERS:
 - Zweifel beim Abweichen vom Familienstandard: ${s1}/5
@@ -446,39 +466,49 @@ EINGABEN DES TEILNEHMERS:
 - Automatische Übernahme fremder Aufgaben: ${s3}/5
 - Zurückhaltung bei eigenen Positionen/Erfolgen: ${s4}/5
 - Eigene Ergänzung / weitere Beobachtung: "${extra}"
+- Konkrete Situation (Ablauf): "${situation}"
 - Familiäre Leitsätze / Regeln: "${rules}"
 - Historischer Kontext / Krisen der Familie: "${history}"
 - Aktuelle Reibung im Alltag/Beruf (2026): "${current}"
 
-STRUKTURIERE DEINE ANTWORT IN 5 KURZEN ABSCHNITTEN:
+STRUKTURIERE DEINE ANTWORT IN 6 KURZEN ABSCHNITTEN:
 
 1. WAS FÄLLT AUF?
-Beschreibe, was sich aus den Antworten erkennen lässt – sowohl bei den Einzelwerten als auch bei auffälligen Kombinationen, Spannungen oder möglichen Abläufen.
-Prüfe außerdem, ob die Antworten Hinweise darauf geben, dass die vier vorgegebenen Bereiche den beschriebenen Alltag nur unvollständig abbilden. Wenn eine freie Beobachtung deutlich außerhalb dieser Bereiche liegt, behandle sie als eigenständige Information und nicht als Variante eines bestehenden Bereichs.
-Prüfe die Beleglage: Gibt es eine direkte Übereinstimmung, lediglich eine denkbare Verbindung oder keinen erkennbaren Zusammenhang zwischen den heutigen Reaktionen und den familiären Regeln?
+Beschreibe, was sich aus den Antworten erkennen lässt – sowohl bei den Einzelwerten als auch bei auffälligen Kombinationen oder Spannungen zwischen den Bereichen. Prüfe außerdem, ob die Antworten Hinweise darauf geben, dass die vier vorgegebenen Bereiche den beschriebenen Alltag nur unvollständig abbilden. Prüfe die Beleglage.
 
-2. WELCHE FUNKTION KÖNNTE DAS FRÜHER GEHABT HABEN?
-Falls eine Verbindung plausibel erscheint, beschreibe in einfacher Sprache, wofür dieses Zusammenspiel damals hilfreich gewesen sein könnte (z. B. Konflikte vermeiden, dazugehören, Sicherheit schaffen, Aufgaben verteilen).
-Wichtig: Eine frühere Funktion muss nicht zwingend vorhanden gewesen sein. Nicht jedes Verhalten diente früher einem bestimmten Zweck. Wenn keine belastbare Funktion erkennbar ist, sage das ausdrücklich.
+2. ABLAUF DER KONKRETEN SITUATION
+Analysiere die beschriebene Situation anhand der oben genannten Schritte (Ausgangssituation bis mögliche Verstärkung). Prüfe, ob sich aus dem beschriebenen Ablauf eine Rückkopplung oder gegenseitige Verstärkung erkennen lässt. Wenn dies nicht ausreichend belegt ist, benenne ausdrücklich, dass keine Rückkopplung festgestellt werden kann. Benenne ausdrücklich, wenn Teile des Ablaufs aus der Beschreibung nicht hervorgehen.
 
-3. WAS MACHT DIESES MUSTER HEUTE?
-Zeige beide Seiten:
-- Wo kann dieses Zusammenspiel heute weiterhin hilfreich sein?
-- Wo kann genau dieselbe Kombination heute Probleme oder unnötige Belastung erzeugen?
-Behandle die Kombination nicht als Fehler. Zeige stattdessen, dass Verhaltensweisen in unterschiedlichen Situationen unterschiedliche Folgen haben.
+3. WELCHE FUNKTION KÖNNTE DAS FRÜHER GEHABT HABEN?
+Falls eine Verbindung plausibel erscheint, beschreibe in einfacher Sprache, wofür dieses Zusammenspiel damals hilfreich gewesen sein könnte. Wichtig: Eine frühere Funktion muss nicht zwingend vorhanden gewesen sein. Nicht jedes Verhalten diente früher einem bestimmten Zweck. Wenn keine belastbare Funktion erkennbar ist, sage das ausdrücklich.
 
 4. WAS IST HEUTE BEOBACHTBAR?
-Formuliere einen einzigen klaren, menschlichen Satz, der zwischen den beschriebenen familiären Bedingungen und der heutigen eigenen Situation unterscheidet.
-Der Satz soll keine Schuld verteilen und keine Handlungsaufforderung enthalten.
-Er soll schlicht, nüchtern und glaubwürdig benennen, was zur damaligen Familiengeschichte gehört und was heute als eigene Reaktion beobachtbar ist.
+Fasse die gegenwärtige Struktur in 2 bis 4 Sätzen zusammen.
+Trenne dabei: familiären Kontext, heutige eigene Reaktion, Reaktion des Umfeldes und mögliche Folgen.
+Vermeide dabei jede Aussage darüber, was die Person „tun sollte“.
 
-5. PERSPEKTIVEN FÜR DIE WEITERE BEOBACHTUNG
-Biete dem Teilnehmer abschließend 2 bis 3 konkrete, nüchterne Fragen oder Beobachtungsangebote an, mit denen das Thema weiter untersucht werden kann.
-Ziel ist nicht die schnelle Lösung, sondern das tiefere Erkennen von Zusammenhängen.
-Beispiele für gute Impulse:
-- „Wenn du möchtest, können wir uns hier eine konkrete Situation aus der letzten Woche anschauen, in der das passiert ist.“
-- „Du könntest im Alltag einmal darauf achten, in welchen Momenten genau das Gefühl von ... auftaucht.“
-Mache deutlich, dass dies nur Fäden sind, die der Teilnehmer aufnehmen kann, aber nicht muss.
+5. WO BLEIBT DIE ANALYSE OFFEN?
+Benenne 2 bis 4 Punkte, die anhand der vorliegenden Angaben nicht eindeutig bestimmbar sind.
+Zeige insbesondere:
+- Welche Verbindung nur vermutet werden kann,
+- welche Information für eine genauere Prüfung fehlt,
+- welche alternativen Erklärungen ebenfalls möglich sind,
+- wo die Angaben möglicherweise widersprüchlich oder mehrdeutig sind.
+Erzeuge keine künstliche Eindeutigkeit. Eine offene Frage ist ein gültiges Ergebnis der Analyse.
+
+6. MÖGLICHE NÄCHSTE SCHRITTE DER BETRACHTUNG
+Leite aus deiner Analyse 3 unterschiedliche Wege ab, um das Thema weiter zu untersuchen (z. B. konkrete Situation, familiärer Zusammenhang, heutiges Umfeld).
+Leite diesen Abschnitt zwingend mit folgendem Satz ein:
+„Wenn du weiter schauen möchtest, kannst du einfach eine dieser Fragen kopieren und absenden:“
+
+Formuliere danach 3 kopierbare Fragen, die der Teilnehmer direkt verwenden kann. Passe sie auf die Eingaben an.
+Beispiele für gute kopierbare Fragen:
+- „Schau dir bitte die konkrete Situation noch einmal Schritt für Schritt an. Wo genau entsteht die Reaktion und was passiert unmittelbar danach?“
+- „Prüfe bitte noch einmal den Zusammenhang zwischen der familiären Regel und meiner heutigen Reaktion. Was spricht dafür und was dagegen?“
+- „Betrachte bitte nur die Reaktion meines Umfeldes. Welche Rolle könnte sie in dem beschriebenen Ablauf spielen?“
+
+Schließe diesen Abschnitt zwingend mit diesem Hinweis ab:
+„Du musst keine davon weiterverfolgen. Die erste Analyse kann auch einfach so stehen bleiben.“
 
 WICHTIGER HINWEIS FÜR DEN WEITEREN DIALOG:
 Nach deiner Antwort darf der Teilnehmer selbst entscheiden, ob und welche Punkte er weiterverfolgen möchte. Wenn er anschließend Fragen stellt, beantworte diese im gleichen nüchternen und menschlichen Stil. Halte die ursprüngliche Analyse nicht für eine endgültige Erklärung.`;
